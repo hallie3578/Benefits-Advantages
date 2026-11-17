@@ -1,17 +1,24 @@
-# Benefits & Advantages: React + Neocities (no database)
+# Benefits & Advantages (React + Vite, Render)
 
-## Ek baar ka setup
-1. `server/config.js` kholo: ADMIN_PASSWORD, TOKEN_SECRET badlo aur NEOCITIES_API_KEY daalo
-   (Neocities > Manage Site Settings > API Key).
-2. `npm install` aur phir `npm run build`
-3. `npm run deploy`  -> poori site Neocities par upload ho jayegi
+## Render settings (Static Site)
+- Build Command: `npm install && npm run build`   |  Publish Directory: `dist`
+- Redirects/Rewrites: Source `/*` -> Destination `/index.html` (Rewrite)
 
-## Roz articles daalne ke liye
-    npm run admin
-Browser mein kholo: http://localhost:4001/admin/login  -> login -> New Article -> Publish
-Publish dabate hi article Neocities par live ho jata hai (data/articles.json + article ka page + sitemap).
+## Dashboard
+Live site par: `https://<aapki-site>.onrender.com/admin/login`
+Login: username `admin`, password `ChangeMe@2026` + (pehli baar) GitHub token.
+Publish dabate hi article GitHub repo mein commit hota hai -> Render 1-2 min mein dobara deploy -> live.
 
-## Dhyan
-- Dashboard sirf aapke computer par chalta hai (live site par /admin nahi chalta).
-- Articles ka backup: `server/store/store.json` aur `server/uploads/`
-- Code/design badalne ke baad: `npm run build` phir `npm run deploy`
+### GitHub token banane ka tareeka
+GitHub > Settings > Developer settings > Personal access tokens > Fine-grained tokens > Generate new token
+- Repository access: Only select repositories -> Benefits-Advantages
+- Repository permissions: Contents = Read and write
+- Expiration: lamba rakho. Token (github_pat_...) copy karke login page par paste karo.
+
+### Password badalna
+Terminal: `node -e "console.log(require('crypto').createHash('sha256').update('NAYA_PASSWORD').digest('hex'))"`
+Jo hash aaye use `src/config.js` mein `passHash` ki jagah daalo. (username bhi wahin hai)
+
+### Dhyan
+- Drafts `content/all.json` mein rehte hain. Repo public hai to drafts GitHub par dikh sakte hain; private repo rakhna behtar hai.
+- Token sirf aapke browser mein save hota hai. Kisi ko mat dena.

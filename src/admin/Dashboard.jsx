@@ -2,8 +2,8 @@ import {useState,useEffect} from 'react';import {Link,useNavigate,useLocation} f
 export default function Dashboard(){const nav=useNavigate(),loc=useLocation(),[list,setList]=useState(null),[err,setErr]=useState(''),[q,setQ]=useState(''),[msg,setMsg]=useState(loc.state?.done||'');
 const fail=e=>{if(/Session/.test(e.message)){logout();nav('/admin/login')}else setErr(e.message)};
 const load=()=>apiList().then(setList).catch(fail);useEffect(()=>{load()},[]);
-const toggle=async a=>{try{await apiSave({...a,pub:!a.pub});setMsg(a.pub?'Draft mein chala gaya':'Live ho gaya ✓');load()}catch(e){fail(e)}};
-const del=async a=>{if(!confirm('Delete: '+a.title+' ?'))return;try{await apiDelete(a.slug);setMsg('Delete ho gaya');load()}catch(e){fail(e)}};
+const toggle=async a=>{try{await apiSave({...a,pub:!a.pub});setMsg(a.pub?'Draft mein gaya ✓ (1-2 min mein site se hatega)':'Save ho gaya ✓ (1-2 min mein site par update)');load()}catch(e){fail(e)}};
+const del=async a=>{if(!confirm('Delete: '+a.title+' ?'))return;try{await apiDelete(a.slug);setMsg('Delete ho gaya ✓ (1-2 min mein site se hatega)');load()}catch(e){fail(e)}};
 const f=(list||[]).filter(a=>a.title.toLowerCase().includes(q.toLowerCase()));
 return <Shell title="Articles" actions={<Link className="abtn" to="/admin/new">+ New Article</Link>}>
 {msg&&<div className="abanner">{msg}</div>}{err&&<div className="abanner er">{err}</div>}

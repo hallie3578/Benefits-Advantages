@@ -20,7 +20,7 @@ const faq=(i,k,v)=>set('faqs',a.faqs.map((f,j)=>j===i?{...f,[k]:v}:f));
 const save=async()=>{if(!a.title.trim())return alert('Title zaroori hai');setBusy('Publish ho raha hai…');
 const html=ed.current.innerHTML,plain=html.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
 try{await apiSave({...a,isNew,slug:a.slug||slugify(a.title),html,excerpt:a.excerpt.trim()||plain.slice(0,160)+(plain.length>160?'…':''),imageAlt:a.imageAlt||a.title,faqs:a.faqs.filter(f=>f.q.trim()&&f.a.trim())});
-nav('/admin',{state:{done:a.pub?'Article live ho gaya ✓ (cache ki wajah se 1 min lag sakta hai)':'Draft save ho gaya ✓'}})}catch(e){alert(e.message);setBusy('')}};
+nav('/admin',{state:{done:a.pub?'Save ho gaya ✓ Render deploy (1-2 min) ke baad site par live dikhega':'Draft save ho gaya ✓'}})}catch(e){alert(e.message);setBusy('')}};
 return <Shell title={isNew?'New Article':'Edit Article'} actions={<><button className="abtn o" disabled={!!busy} onClick={()=>nav('/admin')}>Cancel</button><button className="abtn" disabled={!!busy} onClick={save}>{busy||(a.pub?'Publish':'Save Draft')}</button></>}>
 <div className="apanel"><label>Title</label><input value={a.title} onChange={e=>set('title',e.target.value)} placeholder="Article title"/>
 <label>Feature image</label><div className="arow"><input style={{flex:1}} value={a.image} onChange={e=>set('image',e.target.value)} placeholder="Image URL paste karo ya Upload dabao"/><button type="button" className="abtn o s" onClick={()=>fe.current.click()}>Upload</button>{a.image&&<button type="button" className="abtn d s" onClick={()=>set('image','')}>Remove</button>}</div>

@@ -1,0 +1,6 @@
+node_modules
+dist
+server/store
+server/uploads
+server/config.js
+.env
