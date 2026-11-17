@@ -1,0 +1,8 @@
+# Benefits & Advantages
+> An online publication that explains the real benefits, advantages and limits of modern tools, money decisions and online business in clear, plain language.
+
+## Main pages
+- /articles : all published articles
+- /about : what the site is and how articles are structured
+- /editorial-policy : accuracy, balance and corrections
+- /contact : how to reach the team
